@@ -486,7 +486,7 @@ setInterval(() => {
 }, 60 * 60 * 1000).unref();
 
 server.listen(port, host, () => {
-  console.log(`ApexLand is running at ${publicUrl.origin}`);
+  console.log(`AeroLand is running at ${publicUrl.origin}`);
   console.log(authConfigured ? `Twitch callback: ${redirectUri}` : 'Twitch is not configured; local demo is available.');
   console.log(`Admin panel: ${new URL('/admin', publicUrl)}`);
   console.log(`Admin login: ${adminUsername}`);

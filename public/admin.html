@@ -5,23 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#101a17">
     <meta name="robots" content="noindex, nofollow">
-    <title>Заявки — ApexLand</title>
+    <title>Заявки — AeroLand</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css?v=4">
-    <script src="config.js" defer></script>
-    <script src="admin.js?v=4" defer></script>
+    <script src="config.js?v=5" defer></script>
+    <script src="admin.js?v=5" defer></script>
   </head>
   <body class="is-loading">
     <div class="world-bg" aria-hidden="true"><video autoplay muted loop playsinline poster="assets/voxel-landscape.png"><source src="assets/landscape-loop.mp4" type="video/mp4"></video><div class="world-tint"></div><div class="world-grid"></div></div>
     <div class="site-shell">
       <header class="topbar">
-        <a class="brand" href="index.html" aria-label="ApexLand — на главную"><span class="grass-cube" aria-hidden="true"><span></span></span><span class="brand-name">APEX<span>LAND</span><small>SERVER</small></span></a>
+        <a class="brand" href="index.html" aria-label="AeroLand — на главную"><span class="grass-cube" aria-hidden="true"><span></span></span><span class="brand-name">AERO<span>LAND</span><small>SERVER</small></span></a>
         <div class="topbar-right"><a class="admin-back" href="index.html">На сайт ↗</a></div>
       </header>
       <main class="admin-main">
         <section class="panel admin-login" id="admin-login" aria-labelledby="admin-login-title" hidden>
           <div class="panel-corners" aria-hidden="true"></div>
-          <div class="eyebrow"><span class="eyebrow-square"></span> APEXLAND / АДМИНИСТРАТОР</div>
+          <div class="eyebrow"><span class="eyebrow-square"></span> AEROLAND / АДМИНИСТРАТОР</div>
           <h1 id="admin-login-title">ВХОД В<br><span>ПАНЕЛЬ.</span></h1>
           <p>Логин и пароль выводятся в консоль при запуске сервера.</p>
           <form id="admin-login-form">
@@ -33,12 +33,12 @@
         </section>
 
         <section class="admin-dashboard" id="admin-dashboard" aria-labelledby="admin-dashboard-title" hidden>
-          <div class="admin-dashboard-header"><div><div class="eyebrow"><span class="eyebrow-square"></span> APEXLAND / АДМИНИСТРАТОР</div><h1 id="admin-dashboard-title">ЗАЯВКИ <span>ИГРОКОВ.</span></h1><p>Здесь отображаются заявки, отправленные после входа через Twitch.</p></div><div class="admin-actions"><button id="admin-refresh" type="button">Обновить ↻</button><button id="admin-logout" type="button">Выйти ↗</button></div></div>
+          <div class="admin-dashboard-header"><div><div class="eyebrow"><span class="eyebrow-square"></span> AEROLAND / АДМИНИСТРАТОР</div><h1 id="admin-dashboard-title">ЗАЯВКИ <span>ИГРОКОВ.</span></h1><p>Здесь отображаются заявки, отправленные после входа через Twitch.</p></div><div class="admin-actions"><button id="admin-refresh" type="button">Обновить ↻</button><button id="admin-logout" type="button">Выйти ↗</button></div></div>
           <div class="admin-summary"><div><small>ВСЕГО ЗАЯВОК</small><strong id="applications-count">0</strong></div><div><small>С ЛИЦЕНЗИЕЙ</small><strong id="licensed-count">0</strong></div><div><small>БЕЗ ЛИЦЕНЗИИ</small><strong id="unlicensed-count">0</strong></div></div>
           <div class="panel admin-list-panel"><div class="panel-corners" aria-hidden="true"></div><div class="admin-list-header"><div><span class="tiny-label">СПИСОК ЗАЯВОК</span><h2>Последние заявки</h2></div><label class="mod-search"><span aria-hidden="true">⌕</span><input id="admin-search" type="search" placeholder="Игрок, Twitch или Discord" aria-label="Поиск по заявкам"></label></div><div id="admin-applications" class="admin-applications" aria-live="polite"></div></div>
         </section>
       </main>
-      <footer class="site-footer"><span>© APEXLAND</span><span>ПАНЕЛЬ АДМИНИСТРАТОРА <b aria-hidden="true">✦</b></span></footer>
+      <footer class="site-footer"><span>© AEROLAND</span><span>ПАНЕЛЬ АДМИНИСТРАТОРА <b aria-hidden="true">✦</b></span></footer>
     </div>
   </body>
 </html>

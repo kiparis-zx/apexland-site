@@ -7,7 +7,7 @@ const list = document.getElementById('admin-applications');
 const search = document.getElementById('admin-search');
 let csrfToken = null;
 let applications = [];
-const apiOrigin = window.APEX_API_ORIGIN || '';
+const apiOrigin = window.AERO_API_ORIGIN || '';
 
 async function api(path, options = {}) {
   let response;

@@ -12,7 +12,7 @@ const submitButton = document.getElementById('submit-button');
 const toastElement = document.getElementById('toast');
 let session = null;
 let toastTimeout;
-const apiOrigin = window.APEX_API_ORIGIN || '';
+const apiOrigin = window.AERO_API_ORIGIN || '';
 if (apiOrigin) twitchButton.href = `${apiOrigin}/auth/twitch`;
 
 async function api(path, options = {}) {

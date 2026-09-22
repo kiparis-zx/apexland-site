@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#101a17">
-    <meta name="description" content="Вход через Twitch и заявка на сервер ApexLand.">
-    <title>ApexLand — проходка на сервер</title>
+    <meta name="description" content="Вход через Twitch и заявка на сервер AeroLand.">
+    <title>AeroLand — проходка на сервер</title>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css?v=3">
-    <script src="config.js" defer></script>
-    <script src="app.js?v=3" defer></script>
+    <script src="config.js?v=5" defer></script>
+    <script src="app.js?v=5" defer></script>
   </head>
   <body class="is-loading">
     <div class="world-bg" aria-hidden="true">
@@ -22,9 +22,9 @@
 
     <div class="site-shell">
       <header class="topbar">
-        <a class="brand" href="index.html" aria-label="ApexLand — на главную">
+        <a class="brand" href="index.html" aria-label="AeroLand — на главную">
           <span class="grass-cube" aria-hidden="true"><span></span></span>
-          <span class="brand-name">APEX<span>LAND</span><small>SERVER</small></span>
+          <span class="brand-name">AERO<span>LAND</span><small>SERVER</small></span>
         </a>
         <div class="topbar-right">
           <nav class="nav-links" aria-label="Главная навигация"><a class="active" href="index.html">Главная</a><a href="mods.html">Моды</a><a href="rules.html">Правила</a></nav>
@@ -36,8 +36,8 @@
       <main>
         <section class="screen landing-screen" id="landing-screen" aria-labelledby="landing-title" hidden>
           <div class="hero-copy">
-            <div class="eyebrow"><span class="eyebrow-square"></span> APEXLAND / ЗАЯВКА НА СЕРВЕР</div>
-            <h1 id="landing-title">ХОЧЕШЬ<br>НА <span>APEXLAND?</span></h1>
+            <div class="eyebrow"><span class="eyebrow-square"></span> AEROLAND / ЗАЯВКА НА СЕРВЕР</div>
+            <h1 id="landing-title">ХОЧЕШЬ<br>НА <span>AEROLAND?</span></h1>
             <p class="hero-description">Войди через Twitch и заполни короткую заявку. Ник Twitch подтвердится автоматически.</p>
           </div>
 
@@ -86,7 +86,7 @@
 
         <section class="screen form-screen" id="form-screen" aria-labelledby="form-title" hidden>
           <div class="form-intro">
-            <div class="eyebrow"><span class="eyebrow-square"></span> APEXLAND / ЗАЯВКА</div>
+            <div class="eyebrow"><span class="eyebrow-square"></span> AEROLAND / ЗАЯВКА</div>
             <h1 id="form-title">ЗАПОЛНИ<br><span>АНКЕТУ.</span></h1>
             <p class="hero-description">Укажи имя, ник в Minecraft и Discord для связи. Перед отправкой прочитай правила сервера.</p>
             <div class="identity-card">
@@ -99,7 +99,7 @@
 
           <div class="panel form-panel">
             <div class="panel-corners" aria-hidden="true"></div>
-            <div class="form-panel-header"><div><span class="tiny-label">APEXLAND / ЗАЯВКА</span><h2>Заявка на сервер</h2><p>Поля со звёздочкой обязательны.</p></div></div>
+            <div class="form-panel-header"><div><span class="tiny-label">AEROLAND / ЗАЯВКА</span><h2>Заявка на сервер</h2><p>Поля со звёздочкой обязательны.</p></div></div>
             <form id="application-form" novalidate>
               <div class="form-row two-columns">
                 <label class="field"><span class="field-label">Имя <em>*</em></span><input id="name" name="name" type="text" autocomplete="given-name" placeholder="Как к тебе обращаться" minlength="2" maxlength="40" required><small>Можно указать имя или псевдоним</small></label>
@@ -123,11 +123,11 @@
         </section>
 
         <section class="screen done-screen" id="done-screen" aria-labelledby="done-title" hidden>
-          <div class="panel done-panel"><div class="panel-corners" aria-hidden="true"></div><div class="done-icon" aria-hidden="true">✓</div><div class="eyebrow"><span class="eyebrow-square"></span> APEXLAND / ЗАЯВКА</div><h1 id="done-title">ЗАЯВКА<br><span>ОТПРАВЛЕНА.</span></h1><p>Анкета сохранена. Решение по заявке сообщит администрация сервера.</p><div class="receipt"><div><small>ИГРОК</small><strong id="done-player">—</strong></div><div><small>TWITCH</small><strong id="done-twitch">—</strong></div><div><small>СТАТУС</small><strong>На рассмотрении</strong></div></div><button class="secondary-button" id="done-logout" type="button">Выйти из аккаунта <span aria-hidden="true">↗</span></button></div>
+          <div class="panel done-panel"><div class="panel-corners" aria-hidden="true"></div><div class="done-icon" aria-hidden="true">✓</div><div class="eyebrow"><span class="eyebrow-square"></span> AEROLAND / ЗАЯВКА</div><h1 id="done-title">ЗАЯВКА<br><span>ОТПРАВЛЕНА.</span></h1><p>Анкета сохранена. Решение по заявке сообщит администрация сервера.</p><div class="receipt"><div><small>ИГРОК</small><strong id="done-player">—</strong></div><div><small>TWITCH</small><strong id="done-twitch">—</strong></div><div><small>СТАТУС</small><strong>На рассмотрении</strong></div></div><button class="secondary-button" id="done-logout" type="button">Выйти из аккаунта <span aria-hidden="true">↗</span></button></div>
         </section>
       </main>
 
-      <footer class="site-footer"><span>© APEXLAND</span><span>MINECRAFT SERVER <b aria-hidden="true">✦</b></span></footer>
+      <footer class="site-footer"><span>© AEROLAND</span><span>MINECRAFT SERVER <b aria-hidden="true">✦</b></span></footer>
     </div>
     <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
   </body>
