@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101a17">
+    <meta name="description" content="Вход через Twitch и заявка на сервер ApexLand.">
+    <title>ApexLand — проходка на сервер</title>
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/config.js" defer></script>
+    <script src="/app.js" defer></script>
+  </head>
+  <body class="is-loading">
+    <div class="world-bg" aria-hidden="true">
+      <video autoplay muted loop playsinline poster="/assets/voxel-landscape.png">
+        <source src="/assets/landscape-loop.mp4" type="video/mp4">
+      </video>
+      <div class="world-tint"></div>
+      <div class="world-grid"></div>
+    </div>
+
+    <div class="site-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="ApexLand — на главную">
+          <span class="grass-cube" aria-hidden="true"><span></span></span>
+          <span class="brand-name">APEX<span>LAND</span><small>SERVER</small></span>
+        </a>
+        <div class="topbar-right">
+          <nav class="nav-links" aria-label="Главная навигация"><a class="active" href="/">Главная</a><a href="/mods.html">Моды</a><a href="/rules.html">Правила</a></nav>
+          <span class="topbar-label"><span class="online-dot"></span> ПРОХОДКА НА СЕРВЕР</span>
+          <button class="account-button" id="logout-button" type="button" hidden>Выйти <span aria-hidden="true">↗</span></button>
+        </div>
+      </header>
+
+      <main>
+        <section class="screen landing-screen" id="landing-screen" aria-labelledby="landing-title" hidden>
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="eyebrow-square"></span> APEXLAND / ЗАЯВКА НА СЕРВЕР</div>
+            <h1 id="landing-title">ХОЧЕШЬ<br>НА <span>APEXLAND?</span></h1>
+            <p class="hero-description">Войди через Twitch и заполни короткую заявку. Ник Twitch подтвердится автоматически.</p>
+          </div>
+
+          <aside class="panel auth-panel" aria-labelledby="auth-heading">
+            <div class="panel-corners" aria-hidden="true"></div>
+            <div class="panel-topline"><span class="pixel-symbol">✦</span> ВХОД НА СЕРВЕР</div>
+            <div class="panel-art" aria-hidden="true">
+              <div class="art-glow"></div>
+              <div class="art-cube"><span class="cube-top"></span><span class="cube-left"></span><span class="cube-right"></span></div>
+              <span class="art-particle particle-one"></span><span class="art-particle particle-two"></span><span class="art-particle particle-three"></span>
+            </div>
+            <h2 id="auth-heading">Войди через Twitch</h2>
+            <p class="panel-description">После входа откроется заявка. Ник Twitch подставится сам.</p>
+            <a class="primary-button twitch-button" href="/auth/twitch" id="twitch-button">
+              <svg viewBox="0 0 28 28" aria-hidden="true"><path d="M4 2h21v15l-5 5h-5l-4 4v-4H4V2Zm2 2v16h6v3l3-3h4l4-4V4H6Zm8 3h2v7h-2V7Zm5 0h2v7h-2V7Z" fill="currentColor"/></svg>
+              <span>Войти через Twitch</span><span class="button-arrow" aria-hidden="true">↗</span>
+            </a>
+            <button class="primary-button demo-button" id="demo-button" type="button" hidden>
+              <span class="button-pixel" aria-hidden="true">▣</span><span>Посмотреть демо формы</span><span class="button-arrow" aria-hidden="true">↗</span>
+            </button>
+            <p class="auth-hint" id="auth-hint">Авторизация займёт всего несколько секунд.</p>
+            <div class="panel-bottom"><span>БЕЗОПАСНЫЙ ВХОД</span><span>↳ TWITCH OAUTH</span></div>
+          </aside>
+
+        </section>
+
+        <section class="screen form-screen" id="form-screen" aria-labelledby="form-title" hidden>
+          <div class="form-intro">
+            <div class="eyebrow"><span class="eyebrow-square"></span> APEXLAND / ЗАЯВКА</div>
+            <h1 id="form-title">ЗАПОЛНИ<br><span>АНКЕТУ.</span></h1>
+            <p class="hero-description">Укажи имя и ник в Minecraft. Перед отправкой прочитай правила сервера.</p>
+            <div class="identity-card">
+              <div class="identity-avatar" id="identity-avatar" aria-hidden="true">T</div>
+              <div><small>АВТОРИЗОВАН ЧЕРЕЗ TWITCH</small><strong id="identity-name">—</strong></div>
+              <span class="identity-check" aria-label="Подтверждено">✓</span>
+            </div>
+            <div class="intro-tip"><span aria-hidden="true">✦</span> Ник Twitch заполняется автоматически и не редактируется.</div>
+          </div>
+
+          <div class="panel form-panel">
+            <div class="panel-corners" aria-hidden="true"></div>
+            <div class="form-panel-header"><div><span class="tiny-label">APEXLAND / ЗАЯВКА</span><h2>Заявка на сервер</h2><p>Поля со звёздочкой обязательны.</p></div></div>
+            <form id="application-form" novalidate>
+              <div class="form-row two-columns">
+                <label class="field"><span class="field-label">Имя <em>*</em></span><input id="name" name="name" type="text" autocomplete="given-name" placeholder="Как к тебе обращаться" minlength="2" maxlength="40" required><small>Можно указать имя или псевдоним</small></label>
+                <label class="field"><span class="field-label">Никнейм на Twitch <em>*</em></span><span class="readonly-wrap"><input id="twitch-name" name="twitch" type="text" readonly required><span aria-hidden="true">✓</span></span><small>Подтверждён при входе</small></label>
+              </div>
+
+              <label class="field field-full"><span class="field-label">Никнейм в Minecraft <em>*</em></span><input id="minecraft" name="minecraft" type="text" autocomplete="off" placeholder="Например, Steve_01" minlength="3" maxlength="16" pattern="[A-Za-z0-9_]{3,16}" required><small>3–16 латинских букв, цифр или _</small></label>
+
+              <fieldset class="license-fieldset"><legend>Есть лицензия Minecraft? <em>*</em></legend><div class="license-options"><label class="choice-card"><input type="radio" name="license" value="yes" required><span class="choice-marker" aria-hidden="true"></span><span><strong>Да</strong><small>Лицензионный аккаунт</small></span></label><label class="choice-card"><input type="radio" name="license" value="no" required><span class="choice-marker" aria-hidden="true"></span><span><strong>Нет</strong><small>Нет лицензии</small></span></label></div></fieldset>
+
+              <label class="agreement"><input id="fair-play" name="fairPlay" type="checkbox" required><span class="agreement-box" aria-hidden="true"></span><span>Я принимаю тот факт, что при нечестной игре буду забанен на сервере навсегда без шанса на разбан.</span></label>
+              <a class="form-rules-link" href="/rules.html" target="_blank" rel="noopener noreferrer">Прочитать правила сервера ↗</a>
+
+              <p class="form-error" id="form-error" role="alert" hidden></p>
+              <button class="primary-button submit-button" id="submit-button" type="submit"><span class="button-pixel" aria-hidden="true">▣</span><span>Отправить заявку</span><span class="button-arrow" aria-hidden="true">↗</span></button>
+              <p class="submit-footnote">Отправка заявки не даёт автоматический доступ на сервер.</p>
+            </form>
+          </div>
+        </section>
+
+        <section class="screen done-screen" id="done-screen" aria-labelledby="done-title" hidden>
+          <div class="panel done-panel"><div class="panel-corners" aria-hidden="true"></div><div class="done-icon" aria-hidden="true">✓</div><div class="eyebrow"><span class="eyebrow-square"></span> APEXLAND / ЗАЯВКА</div><h1 id="done-title">ЗАЯВКА<br><span>ОТПРАВЛЕНА.</span></h1><p>Анкета сохранена. Решение по заявке сообщит администрация сервера.</p><div class="receipt"><div><small>ИГРОК</small><strong id="done-player">—</strong></div><div><small>TWITCH</small><strong id="done-twitch">—</strong></div><div><small>СТАТУС</small><strong>На рассмотрении</strong></div></div><button class="secondary-button" id="done-logout" type="button">Выйти из аккаунта <span aria-hidden="true">↗</span></button></div>
+        </section>
+      </main>
+
+      <footer class="site-footer"><span>© APEXLAND</span><span>MINECRAFT SERVER <b aria-hidden="true">✦</b></span></footer>
+    </div>
+    <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  </body>
+</html>
