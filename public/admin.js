@@ -10,11 +10,16 @@ let applications = [];
 const apiOrigin = window.APEX_API_ORIGIN || '';
 
 async function api(path, options = {}) {
-  const response = await fetch(`${apiOrigin}${path}`, {
-    credentials: 'include',
-    ...options,
-    headers: { ...(options.body ? { 'Content-Type': 'application/json' } : {}), ...options.headers }
-  });
+  let response;
+  try {
+    response = await fetch(`${apiOrigin}${path}`, {
+      credentials: 'include',
+      ...options,
+      headers: { ...(options.body ? { 'Content-Type': 'application/json' } : {}), ...options.headers }
+    });
+  } catch {
+    throw new Error('Сервер заявок сейчас недоступен.');
+  }
   const body = await response.json();
   if (!response.ok) throw new Error(body.error || 'Ошибка сервера.');
   return body;
