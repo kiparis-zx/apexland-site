@@ -268,8 +268,9 @@ em { color: #ffb06e; font-style: normal; }
 .application-player > span { display: grid; place-items: center; width: 35px; height: 35px; flex: none; background: var(--lime); color: #172019; font-size: 20px; }
 .application-player h3 { margin: 0 0 4px; color: #f2f5e6; font-size: 18px; overflow-wrap: anywhere; }
 .application-player small { color: #9cad99; font-size: 12px; }
+.application-player .application-discord { display: block; margin-top: 5px; color: var(--lime); overflow-wrap: anywhere; }
 .application-card time { flex: none; color: #9fb39c; font: 11px Consolas, monospace; }
-.application-details { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 15px; padding: 17px 19px; }
+.application-details { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 15px; padding: 17px 19px; }
 .application-details small { display: block; margin-bottom: 6px; color: #7f987d; font: 700 9px Consolas, monospace; letter-spacing: .7px; }
 .application-details strong { display: block; color: #d9e7ce; font-size: 12px; overflow-wrap: anywhere; }
 

@@ -76,7 +76,12 @@ function renderApplications() {
     nickname.textContent = item.minecraft;
     const name = document.createElement('small');
     name.textContent = `Имя: ${item.name}`;
-    title.append(nickname, name);
+    const discord = document.createElement('small');
+    discord.className = 'application-discord';
+    discord.textContent = item.discord
+      ? `Discord: @${item.discord}`
+      : 'Discord не указан (старая заявка)';
+    title.append(nickname, name, discord);
     player.append(cube, title);
     const date = document.createElement('time');
     const submitted = new Date(item.submittedAt);
@@ -90,7 +95,6 @@ function renderApplications() {
     details.append(
       label('TWITCH', item.twitchDisplayName || item.twitchLogin),
       label('TWITCH ID', item.twitchId),
-      label('DISCORD', item.discord ? `@${item.discord}` : 'Не указан (старая заявка)'),
       label('ЛИЦЕНЗИЯ', item.license === 'yes' ? 'Да' : 'Нет'),
       label('ПРАВИЛО ЧЕСТНОЙ ИГРЫ', item.fairPlayAccepted ? 'Принято' : 'Не подтверждено')
     );
