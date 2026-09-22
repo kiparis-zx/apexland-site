@@ -6,15 +6,15 @@
     <meta name="theme-color" content="#101a17">
     <meta name="description" content="Вход через Twitch и заявка на сервер ApexLand.">
     <title>ApexLand — проходка на сервер</title>
-    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="/styles.css">
-    <script src="/config.js" defer></script>
-    <script src="/app.js" defer></script>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <script src="config.js" defer></script>
+    <script src="app.js" defer></script>
   </head>
   <body class="is-loading">
     <div class="world-bg" aria-hidden="true">
-      <video autoplay muted loop playsinline poster="/assets/voxel-landscape.png">
-        <source src="/assets/landscape-loop.mp4" type="video/mp4">
+      <video autoplay muted loop playsinline poster="assets/voxel-landscape.png">
+        <source src="assets/landscape-loop.mp4" type="video/mp4">
       </video>
       <div class="world-tint"></div>
       <div class="world-grid"></div>
@@ -22,12 +22,12 @@
 
     <div class="site-shell">
       <header class="topbar">
-        <a class="brand" href="/" aria-label="ApexLand — на главную">
+        <a class="brand" href="index.html" aria-label="ApexLand — на главную">
           <span class="grass-cube" aria-hidden="true"><span></span></span>
           <span class="brand-name">APEX<span>LAND</span><small>SERVER</small></span>
         </a>
         <div class="topbar-right">
-          <nav class="nav-links" aria-label="Главная навигация"><a class="active" href="/">Главная</a><a href="/mods.html">Моды</a><a href="/rules.html">Правила</a></nav>
+          <nav class="nav-links" aria-label="Главная навигация"><a class="active" href="index.html">Главная</a><a href="mods.html">Моды</a><a href="rules.html">Правила</a></nav>
           <span class="topbar-label"><span class="online-dot"></span> ПРОХОДКА НА СЕРВЕР</span>
           <button class="account-button" id="logout-button" type="button" hidden>Выйти <span aria-hidden="true">↗</span></button>
         </div>
@@ -91,7 +91,7 @@
               <fieldset class="license-fieldset"><legend>Есть лицензия Minecraft? <em>*</em></legend><div class="license-options"><label class="choice-card"><input type="radio" name="license" value="yes" required><span class="choice-marker" aria-hidden="true"></span><span><strong>Да</strong><small>Лицензионный аккаунт</small></span></label><label class="choice-card"><input type="radio" name="license" value="no" required><span class="choice-marker" aria-hidden="true"></span><span><strong>Нет</strong><small>Нет лицензии</small></span></label></div></fieldset>
 
               <label class="agreement"><input id="fair-play" name="fairPlay" type="checkbox" required><span class="agreement-box" aria-hidden="true"></span><span>Я принимаю тот факт, что при нечестной игре буду забанен на сервере навсегда без шанса на разбан.</span></label>
-              <a class="form-rules-link" href="/rules.html" target="_blank" rel="noopener noreferrer">Прочитать правила сервера ↗</a>
+              <a class="form-rules-link" href="rules.html" target="_blank" rel="noopener noreferrer">Прочитать правила сервера ↗</a>
 
               <p class="form-error" id="form-error" role="alert" hidden></p>
               <button class="primary-button submit-button" id="submit-button" type="submit"><span class="button-pixel" aria-hidden="true">▣</span><span>Отправить заявку</span><span class="button-arrow" aria-hidden="true">↗</span></button>
