@@ -36,6 +36,8 @@ GitHub Pages размещает только файлы из `public/`. Для T
 
 В опубликованном `public/config.js` задайте `window.APEX_API_ORIGIN = 'https://api.aeromolica.kiparis.fun';`. Браузер отправляет запросы с учётными данными на API; API разрешает CORS только для `FRONTEND_URL`. Поддомены должны оставаться под одним регистрируемым доменом, чтобы браузер передавал cookie входа. У API должен быть действительный HTTPS-сертификат. Админ-логин и пароль выводятся в консоль Node-сервера при каждом запуске.
 
+Для адреса сайта добавьте в DNS Cloudflare запись `CNAME` с именем `aeromolica` и значением `kiparis-zx.github.io` (режим DNS only), затем укажите `aeromolica.kiparis.fun` в настройках GitHub Pages этого репозитория и включите HTTPS после выпуска сертификата. Для `api.aeromolica.kiparis.fun` нужна отдельная DNS-запись на выбранный Node-хостинг. Файл `CNAME` в артефакте GitHub Actions сам по себе не назначает домен в настройках Pages.
+
 Не помещайте `TWITCH_CLIENT_SECRET`, `.env` или файл `data/applications.json` в GitHub Pages или репозиторий. Переменные `PUBLIC_URL` и `PORT` для локального запуска должны указывать на один и тот же порт.
 
 ## Куда попадают заявки
