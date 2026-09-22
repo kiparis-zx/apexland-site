@@ -9,6 +9,7 @@ const root = dirname(fileURLToPath(import.meta.url));
 if (existsSync(resolve(root, '.env'))) process.loadEnvFile(resolve(root, '.env'));
 
 const port = Number(process.env.PORT || 3000);
+const host = process.env.HOST || '0.0.0.0';
 const publicUrl = new URL(process.env.PUBLIC_URL || `http://localhost:${port}`);
 const frontendUrl = new URL(process.env.FRONTEND_URL || publicUrl.origin);
 const redirectUri = new URL('/auth/callback', publicUrl).toString();
@@ -479,7 +480,7 @@ setInterval(() => {
   for (const [ip, attempt] of failedAdminLogins) if (attempt.resetAt < now) failedAdminLogins.delete(ip);
 }, 60 * 60 * 1000).unref();
 
-server.listen(port, () => {
+server.listen(port, host, () => {
   console.log(`ApexLand is running at ${publicUrl.origin}`);
   console.log(authConfigured ? `Twitch callback: ${redirectUri}` : 'Twitch is not configured; local demo is available.');
   console.log(`Admin panel: ${new URL('/admin', publicUrl)}`);

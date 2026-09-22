@@ -30,13 +30,11 @@ npm start
 
 Для публичного сайта с единым Node-сервером укажите `PUBLIC_URL=https://ваш-домен` и зарегистрируйте у Twitch `https://ваш-домен/auth/callback`. Запускайте с `NODE_ENV=production` за HTTPS-прокси. Секрет приложения храните только на сервере и не добавляйте `.env` в репозиторий.
 
-## GitHub Pages и отдельный API
+## GitHub Pages и серверная часть
 
-GitHub Pages размещает только файлы из `public/`. Для Twitch OAuth, заявок и панели администратора нужен постоянно работающий Node-сервер с постоянным диском. Схема для ApexLand: GitHub Pages обслуживает `https://aeromolica.kiparis.fun`, а Node-сервер — `https://api.aeromolica.kiparis.fun`. На сервере укажите `PUBLIC_URL=https://api.aeromolica.kiparis.fun`, `FRONTEND_URL=https://aeromolica.kiparis.fun`, `NODE_ENV=production` и добавьте в Twitch Developer Console точный Redirect URL `https://api.aeromolica.kiparis.fun/auth/callback`.
+GitHub Pages публикует статические файлы из `public/`. Для Twitch OAuth, заявок и панели администратора постоянно работает Node-сервер с диском. DNS-запись `aeromolica.kiparis.fun` указывает на VPS. Nginx на VPS получает статические страницы с `https://kiparis-zx.github.io/apexland-site/` и отправляет запросы `/api/` и `/auth/` локальному Node-серверу. Браузер видит один HTTPS-домен, поэтому авторизационные cookie работают без сторонних cookie.
 
-В опубликованном `public/config.js` задайте `window.APEX_API_ORIGIN = 'https://api.aeromolica.kiparis.fun';`. Браузер отправляет запросы с учётными данными на API; API разрешает CORS только для `FRONTEND_URL`. Поддомены должны оставаться под одним регистрируемым доменом, чтобы браузер передавал cookie входа. У API должен быть действительный HTTPS-сертификат. Админ-логин и пароль выводятся в консоль Node-сервера при каждом запуске.
-
-Для адреса сайта добавьте в DNS Cloudflare запись `CNAME` с именем `aeromolica` и значением `kiparis-zx.github.io` (режим DNS only), затем укажите `aeromolica.kiparis.fun` в настройках GitHub Pages этого репозитория и включите HTTPS после выпуска сертификата. Для `api.aeromolica.kiparis.fun` нужна отдельная DNS-запись на выбранный Node-хостинг. Файл `CNAME` в артефакте GitHub Actions сам по себе не назначает домен в настройках Pages.
+На VPS укажите `PUBLIC_URL=https://aeromolica.kiparis.fun`, `FRONTEND_URL=https://aeromolica.kiparis.fun`, `HOST=127.0.0.1`, `NODE_ENV=production` и точный Redirect URL `https://aeromolica.kiparis.fun/auth/callback` в Twitch Developer Console. `public/config.js` оставьте с пустым `APEX_API_ORIGIN`: браузер обращается к API на том же домене. Админ-логин и пароль выводятся в журнал Node-сервера при каждом запуске.
 
 Не помещайте `TWITCH_CLIENT_SECRET`, `.env` или файл `data/applications.json` в GitHub Pages или репозиторий. Переменные `PUBLIC_URL` и `PORT` для локального запуска должны указывать на один и тот же порт.
 
