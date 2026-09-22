@@ -188,14 +188,18 @@ function validateApplication(body) {
   if (!body || typeof body !== 'object' || Array.isArray(body)) return { error: 'Некорректные данные формы.' };
   const name = typeof body.name === 'string' ? body.name.trim().replace(/\s+/g, ' ') : '';
   const minecraft = typeof body.minecraft === 'string' ? body.minecraft.trim() : '';
+  const discord = typeof body.discord === 'string' ? body.discord.trim().replace(/^@/, '') : '';
   const license = body.license;
   if (name.length < 2 || name.length > 40) return { error: 'Укажите имя от 2 до 40 символов.' };
   if (!/^[A-Za-z0-9_]{3,16}$/.test(minecraft)) {
     return { error: 'Ник Minecraft: 3–16 латинских букв, цифр или _.' };
   }
+  if (!/^[A-Za-z0-9_.]{2,32}$/.test(discord)) {
+    return { error: 'Укажите имя пользователя Discord: 2–32 символа.' };
+  }
   if (license !== 'yes' && license !== 'no') return { error: 'Укажите, есть ли у вас лицензия.' };
   if (body.fairPlay !== true) return { error: 'Подтвердите согласие с правилом честной игры.' };
-  return { name, minecraft, license };
+  return { name, minecraft, discord, license };
 }
 
 function persistApplications() {
@@ -446,6 +450,7 @@ const server = createServer(async (request, response) => {
         twitchDisplayName: session.user.displayName,
         name: data.name,
         minecraft: data.minecraft,
+        discord: data.discord,
         license: data.license,
         fairPlayAccepted: true,
         submittedAt: new Date().toISOString()

@@ -46,7 +46,27 @@
             <div class="panel-topline"><span class="pixel-symbol">✦</span> ВХОД НА СЕРВЕР</div>
             <div class="panel-art" aria-hidden="true">
               <div class="art-glow"></div>
-              <div class="art-cube"><span class="cube-top"></span><span class="cube-left"></span><span class="cube-right"></span></div>
+              <div class="art-cube">
+                <svg viewBox="0 0 128 128" aria-hidden="true" focusable="false">
+                  <defs>
+                    <clipPath id="cube-left-face"><path d="M12 30 64 55v61L12 89Z"/></clipPath>
+                    <clipPath id="cube-right-face"><path d="m64 55 52-25v59l-52 27Z"/></clipPath>
+                  </defs>
+                  <path d="M12 30 64 55v61L12 89Z" fill="#86603a"/>
+                  <path d="m64 55 52-25v59l-52 27Z" fill="#61462d"/>
+                  <g clip-path="url(#cube-left-face)" fill="#a57643">
+                    <path d="M20 56h10v8H20zM39 69h12v8H39zM15 75h9v7h-9zM31 91h10v9H31zM48 98h9v8h-9z"/>
+                  </g>
+                  <g clip-path="url(#cube-right-face)" fill="#775331">
+                    <path d="M72 69h9v7h-9zM94 55h11v8H94zM82 84h13v8H82zM102 94h8v7h-8zM67 99h8v8h-8z"/>
+                  </g>
+                  <path d="M12 30 64 55v12L12 42Z" fill="#679a43"/>
+                  <path d="m64 55 52-25v12L64 67Z" fill="#4e7b36"/>
+                  <path d="m64 9 52 21-52 25-52-25Z" fill="#afe05d"/>
+                  <path d="M12 30 64 9l52 21-52-3-52 22Z" fill="#d2f18b" opacity=".64"/>
+                  <path d="m20 33 9-4 10 4-9 4Zm52-17 10 4-9 4-10-4Zm24 14 9-3 8 3-9 4ZM42 46l9-4 10 5-8 4Z" fill="#96ca52" opacity=".7"/>
+                </svg>
+              </div>
               <span class="art-particle particle-one"></span><span class="art-particle particle-two"></span><span class="art-particle particle-three"></span>
             </div>
             <h2 id="auth-heading">Войди через Twitch</h2>
@@ -68,7 +88,7 @@
           <div class="form-intro">
             <div class="eyebrow"><span class="eyebrow-square"></span> APEXLAND / ЗАЯВКА</div>
             <h1 id="form-title">ЗАПОЛНИ<br><span>АНКЕТУ.</span></h1>
-            <p class="hero-description">Укажи имя и ник в Minecraft. Перед отправкой прочитай правила сервера.</p>
+            <p class="hero-description">Укажи имя, ник в Minecraft и Discord для связи. Перед отправкой прочитай правила сервера.</p>
             <div class="identity-card">
               <div class="identity-avatar" id="identity-avatar" aria-hidden="true">T</div>
               <div><small>АВТОРИЗОВАН ЧЕРЕЗ TWITCH</small><strong id="identity-name">—</strong></div>
@@ -87,6 +107,8 @@
               </div>
 
               <label class="field field-full"><span class="field-label">Никнейм в Minecraft <em>*</em></span><input id="minecraft" name="minecraft" type="text" autocomplete="off" placeholder="Например, Steve_01" minlength="3" maxlength="16" pattern="[A-Za-z0-9_]{3,16}" required><small>3–16 латинских букв, цифр или _</small></label>
+
+              <label class="field field-full"><span class="field-label">Discord для связи <em>*</em></span><input id="discord" name="discord" type="text" autocomplete="off" placeholder="Например, username" minlength="2" maxlength="33" required><small>Укажи имя пользователя Discord, можно с @ в начале</small></label>
 
               <fieldset class="license-fieldset"><legend>Есть лицензия Minecraft? <em>*</em></legend><div class="license-options"><label class="choice-card"><input type="radio" name="license" value="yes" required><span class="choice-marker" aria-hidden="true"></span><span><strong>Да</strong><small>Лицензионный аккаунт</small></span></label><label class="choice-card"><input type="radio" name="license" value="no" required><span class="choice-marker" aria-hidden="true"></span><span><strong>Нет</strong><small>Нет лицензии</small></span></label></div></fieldset>
 

@@ -134,10 +134,12 @@ applicationForm.addEventListener('submit', async event => {
 
   const name = document.getElementById('name');
   const minecraft = document.getElementById('minecraft');
+  const discord = document.getElementById('discord');
   const license = applicationForm.querySelector('input[name="license"]:checked');
   const fairPlay = document.getElementById('fair-play');
   name.value = name.value.trim().replace(/\s+/g, ' ');
   minecraft.value = minecraft.value.trim();
+  discord.value = discord.value.trim();
 
   if (name.value.length < 2 || name.value.length > 40) {
     name.setCustomValidity('Укажите имя от 2 до 40 символов.');
@@ -149,6 +151,12 @@ applicationForm.addEventListener('submit', async event => {
     minecraft.setCustomValidity('Ник: 3–16 латинских букв, цифр или _.');
     minecraft.reportValidity();
     minecraft.focus();
+    return;
+  }
+  if (!/^@?[A-Za-z0-9_.]{2,32}$/.test(discord.value)) {
+    discord.setCustomValidity('Укажи имя пользователя Discord: 2–32 символа, можно с @ в начале.');
+    discord.reportValidity();
+    discord.focus();
     return;
   }
   if (!license) {
@@ -171,6 +179,7 @@ applicationForm.addEventListener('submit', async event => {
       body: JSON.stringify({
         name: name.value,
         minecraft: minecraft.value,
+        discord: discord.value.replace(/^@/, ''),
         license: license.value,
         fairPlay: true
       })

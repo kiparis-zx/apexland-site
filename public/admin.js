@@ -49,7 +49,7 @@ function label(text, value) {
 function renderApplications() {
   const query = search.value.trim().toLocaleLowerCase('ru');
   const filtered = applications.filter(item =>
-    [item.name, item.minecraft, item.twitchLogin, item.twitchDisplayName, item.twitchId]
+    [item.name, item.minecraft, item.discord, item.twitchLogin, item.twitchDisplayName, item.twitchId]
       .some(value => String(value || '').toLocaleLowerCase('ru').includes(query))
   );
   list.replaceChildren();
@@ -90,6 +90,7 @@ function renderApplications() {
     details.append(
       label('TWITCH', item.twitchDisplayName || item.twitchLogin),
       label('TWITCH ID', item.twitchId),
+      label('DISCORD', item.discord ? `@${item.discord}` : 'Не указан (старая заявка)'),
       label('ЛИЦЕНЗИЯ', item.license === 'yes' ? 'Да' : 'Нет'),
       label('ПРАВИЛО ЧЕСТНОЙ ИГРЫ', item.fairPlayAccepted ? 'Принято' : 'Не подтверждено')
     );
