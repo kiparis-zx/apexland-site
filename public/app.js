@@ -46,9 +46,11 @@ function render(state) {
   if (!state.authenticated) {
     twitchButton.hidden = !state.authConfigured;
     demoButton.hidden = !state.demoAllowed;
-    authHint.textContent = state.demoAllowed
-      ? 'Демо работает без ключей Twitch. Настройка входа описана в README.'
-      : 'Авторизация займёт всего несколько секунд.';
+    authHint.textContent = state.unavailable
+      ? 'Приём заявок временно недоступен. Попробуй позже.'
+      : state.demoAllowed
+        ? 'Демо работает без ключей Twitch. Настройка входа описана в README.'
+        : 'Авторизация займёт всего несколько секунд.';
     show('landing');
     return;
   }
@@ -191,6 +193,6 @@ if (authStatus && authMessages[authStatus]) {
 }
 
 loadState().catch(error => {
-  render({ authenticated: false, authConfigured: true, demoAllowed: false });
+  render({ authenticated: false, authConfigured: false, demoAllowed: false, unavailable: true });
   toast(`Не удалось связаться с сервером: ${error.message}`);
 });
