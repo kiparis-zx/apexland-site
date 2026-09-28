@@ -28,6 +28,8 @@ main { flex: 1; }
 .site-footer strong { color: #fff; font: 800 18px Unbounded, Arial, sans-serif; }
 .site-footer a { text-decoration: none; }
 .site-footer a:hover { color: var(--lime); }
+.community-link, .faq-list p a { color: var(--lime); text-underline-offset: 3px; }
+.rules-hero .eyebrow .community-link { text-decoration: none; }
 
 /* Home and Twitch login */
 .home-page .landing-screen { display: block; position: relative; width: 100%; overflow: hidden; }

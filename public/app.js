@@ -19,7 +19,7 @@ const apiOrigin = window.AERO_API_ORIGIN || '';
 if (apiOrigin) twitchButton.href = `${apiOrigin}/auth/twitch`;
 const decisionCopy = {
   pending: { title: 'отправлена', message: 'Анкета сохранена. Решение по заявке появится здесь.', label: 'На рассмотрении', icon: '✓' },
-  accepted: { title: 'одобрена', message: 'Заявка принята. С вами свяжутся в Discord.', label: 'Принята', icon: '✓' },
+  accepted: { title: 'одобрена', message: 'Заявка одобрена. С вами свяжутся в Discord.', label: 'Одобрена', icon: '✓' },
   rejected: { title: 'отклонена', message: 'В этот раз заявка отклонена. Попробуйте в следующем сезоне.', label: 'Отклонена', icon: '×' }
 };
 
@@ -141,6 +141,11 @@ async function loadState() {
 window.addEventListener('hashchange', () => {
   if (currentState) render(currentState);
   window.scrollTo({ top: 0, behavior: 'auto' });
+});
+
+document.querySelector('.site-footer a[href="#top"]').addEventListener('click', event => {
+  event.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
 setInterval(() => {

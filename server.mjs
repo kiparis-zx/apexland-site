@@ -398,7 +398,7 @@ const server = createServer(async (request, response) => {
         return sendJson(response, 400, { error: 'Некорректные данные.' });
       }
       if (body?.status !== 'accepted' && body?.status !== 'rejected') {
-        return sendJson(response, 400, { error: 'Выберите: принять или отклонить.' });
+        return sendJson(response, 400, { error: 'Выберите: одобрить или отклонить.' });
       }
       let twitchId;
       try {

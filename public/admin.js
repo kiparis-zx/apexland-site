@@ -8,7 +8,7 @@ const search = document.getElementById('admin-search');
 let csrfToken = null;
 let applications = [];
 const apiOrigin = window.AERO_API_ORIGIN || '';
-const statusLabels = { pending: 'На рассмотрении', accepted: 'Принята', rejected: 'Отклонена' };
+const statusLabels = { pending: 'На рассмотрении', accepted: 'Одобрена', rejected: 'Отклонена' };
 
 function statusOf(item) {
   return item.status === 'accepted' || item.status === 'rejected' ? item.status : 'pending';
@@ -115,7 +115,7 @@ function renderApplications() {
     error.className = 'application-action-error';
     error.setAttribute('role', 'alert');
     error.hidden = true;
-    for (const [decision, title] of [['accepted', 'Принять'], ['rejected', 'Отклонить']]) {
+    for (const [decision, title] of [['accepted', 'Одобрить'], ['rejected', 'Отклонить']]) {
       const button = document.createElement('button');
       button.type = 'button';
       button.className = `decision-button decision-${decision}`;
