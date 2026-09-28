@@ -31,8 +31,9 @@ main { flex: 1; }
 
 /* Home and Twitch login */
 .home-page .landing-screen { display: block; position: relative; width: 100%; overflow: hidden; }
-.home-page .world-bg { position: absolute; inset: 0 0 auto; z-index: 0; height: 710px; background: #141923 url('assets/voxel-landscape.png') center 52% / cover no-repeat; }
-.home-page .world-tint { background: linear-gradient(90deg, rgba(9,11,16,.9) 0%,rgba(9,11,16,.64) 48%,rgba(9,11,16,.35) 100%), linear-gradient(0deg,#0c0e12 0%,transparent 34%,rgba(12,14,18,.1) 100%); }
+.home-page .world-bg { position: absolute; inset: 0 0 auto; z-index: 0; height: 710px; background: #141923 url('assets/aeroland-background.webp') center 52% / cover no-repeat; }
+.home-page .world-bg video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.9) brightness(.86); transform: none; }
+.home-page .world-tint { background: linear-gradient(90deg, rgba(9,11,16,.76) 0%,rgba(9,11,16,.55) 48%,rgba(9,11,16,.28) 100%), linear-gradient(0deg,#0c0e12 0%,transparent 34%,rgba(12,14,18,.08) 100%); }
 .home-page .world-bg::after { display: none; }
 .landing-inner { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(330px, .73fr); align-items: center; gap: clamp(40px, 5vw, 100px); width: min(100% - 11vw, 1320px); min-height: 710px; margin: auto; padding: 80px 0 100px; }
 .hero-copy { max-width: 800px; padding: 0; }
@@ -285,4 +286,5 @@ body:not(.is-loading) .site-shell { animation: page-enter .42s ease-out both; }
 @media (prefers-reduced-motion: reduce) {
   body:not(.is-loading) .site-shell, .screen:not([hidden]), ::view-transition-old(root), ::view-transition-new(root) { animation: none !important; }
   .rule-section-heading .accordion-chevron, .faq-list summary::after { transition: none; }
+  .home-page .world-bg video { display: none; }
 }

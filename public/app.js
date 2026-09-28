@@ -11,6 +11,7 @@ const applicationForm = document.getElementById('application-form');
 const formError = document.getElementById('form-error');
 const submitButton = document.getElementById('submit-button');
 const toastElement = document.getElementById('toast');
+const backgroundVideo = document.querySelector('.world-bg video');
 let session = null;
 let toastTimeout;
 const apiOrigin = window.AERO_API_ORIGIN || '';
@@ -37,6 +38,12 @@ function show(screen) {
   formScreen.hidden = screen !== 'form';
   doneScreen.hidden = screen !== 'done';
   document.body.classList.remove('is-loading');
+  if (screen === 'landing' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches && !navigator.connection?.saveData) {
+    if (!backgroundVideo.getAttribute('src')) backgroundVideo.src = backgroundVideo.dataset.src;
+    backgroundVideo.play().catch(() => {});
+  } else {
+    backgroundVideo.pause();
+  }
 }
 
 function toast(message) {
