@@ -5,6 +5,7 @@ const twitchButton = document.getElementById('twitch-button');
 const demoButton = document.getElementById('demo-button');
 const authHint = document.getElementById('auth-hint');
 const logoutButton = document.getElementById('logout-button');
+const navCta = document.querySelector('.topbar .nav-cta');
 const doneLogout = document.getElementById('done-logout');
 const applicationForm = document.getElementById('application-form');
 const formError = document.getElementById('form-error');
@@ -49,6 +50,8 @@ function render(state) {
   session = state.authenticated ? state : null;
   logoutButton.hidden = !state.authenticated;
   if (!state.authenticated) {
+    navCta.href = '#application';
+    navCta.textContent = 'Подать заявку';
     twitchButton.hidden = !state.authConfigured;
     demoButton.hidden = !state.demoAllowed;
     authHint.textContent = state.unavailable
@@ -72,10 +75,14 @@ function render(state) {
   }
 
   if (state.application) {
+    navCta.href = '#done-screen';
+    navCta.textContent = 'Моя заявка';
     document.getElementById('done-player').textContent = state.application.minecraft;
     document.getElementById('done-twitch').textContent = state.user.displayName;
     show('done');
   } else {
+    navCta.href = '#form-screen';
+    navCta.textContent = 'Заполнить анкету';
     show('form');
   }
 }
