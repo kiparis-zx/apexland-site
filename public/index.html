@@ -16,13 +16,13 @@
   <script src="config.js?v=6" defer></script><script src="app.js?v=9" defer></script>
 </head>
 <body class="is-loading home-page">
-<div class="site-shell"><header class="topbar" id="top"><a class="brand" href="#home" aria-label="AeroLand — на главную"><span class="brand-name">Aero<span>Land</span></span></a><div class="topbar-right"><nav class="nav-links" aria-label="Главная навигация"><a href="#home" class="active" aria-current="page">Главная</a><a href="rules.html">Правила</a><a href="mods.html">Моды</a><a href="faq.html">FAQ</a></nav><a class="nav-cta" href="#application">Подать заявку</a><button class="account-button" id="logout-button" type="button" hidden>Выйти ↗</button></div></header>
+<div class="site-shell"><header class="topbar" id="top"><a class="brand" href="#home" aria-label="AeroLand — на главную"><span class="brand-name">Aero<span>Land</span></span></a><div class="topbar-right"><nav class="nav-links" aria-label="Главная навигация"><a href="#home" class="active" aria-current="page">Главная</a><a href="rules">Правила</a><a href="mods">Моды</a><a href="faq">FAQ</a></nav><a class="nav-cta" href="#application">Подать заявку</a><button class="account-button" id="logout-button" type="button" hidden>Выйти ↗</button></div></header>
 <main><section class="screen landing-screen" id="landing-screen" aria-labelledby="landing-title" hidden>
   <div class="world-bg" aria-hidden="true"><video muted loop playsinline preload="none" poster="assets/aeroland-background.webp" data-src="https://aeromolica.kiparis.fun/media/background-1080p60.mp4"></video><div class="world-tint"></div></div>
   <div class="landing-inner"><div class="hero-copy">
     <h1 id="landing-title">Место, где<br><span>хочется остаться</span></h1>
     <p class="hero-description">Строй, исследуй и находи друзей в мире AeroLand. Для входа подтверди Twitch и расскажи немного о себе.</p>
-    <div class="hero-links"><a href="rules.html">Правила сервера ↗</a><a href="mods.html">Список модов ↗</a><a href="https://discord.gg/ny2bcKSxxm" target="_blank" rel="noopener noreferrer">Наш Discord ↗</a></div>
+    <div class="hero-links"><a href="rules">Правила сервера ↗</a><a href="mods">Список модов ↗</a><a href="https://discord.gg/ny2bcKSxxm" target="_blank" rel="noopener noreferrer">Наш Discord ↗</a></div>
   </div>
   <aside class="panel auth-panel" id="application" aria-labelledby="auth-heading">
     <div class="panel-topline">ЗАЯВКА НА AEROLAND</div>
@@ -40,9 +40,9 @@
     <a class="primary-button member-action" id="member-action" href="#done-screen"><span id="member-action-label">Моя заявка</span><span class="button-arrow" aria-hidden="true">↗</span></a>
   </aside></div>
   <div class="landing-overview"><div><span class="section-kicker">AEROLAND / НАЧНИ ЗДЕСЬ</span><h2>Своя история<br>начинается здесь</h2></div>
-    <div class="overview-grid"><a class="overview-card" href="rules.html"><small>01 / ПРАВИЛА</small><h3>Наши правила</h3><p>Всё, что помогает играть честно и с уважением друг к другу.</p><span>Подробнее ↗</span></a>
-    <a class="overview-card" href="mods.html"><small>02 / ИГРА</small><h3>Моды и ресурспаки</h3><p>Проверь, какие модификации можно использовать на сервере.</p><span>Открыть список ↗</span></a>
-    <a class="overview-card" href="faq.html"><small>03 / ВОПРОСЫ</small><h3>Частые вопросы</h3><p>Ответы о входе, лицензии и жизни на AeroLand.</p><span>Читать FAQ ↗</span></a></div>
+    <div class="overview-grid"><a class="overview-card" href="rules"><small>01 / ПРАВИЛА</small><h3>Наши правила</h3><p>Всё, что помогает играть честно и с уважением друг к другу.</p><span>Подробнее ↗</span></a>
+    <a class="overview-card" href="mods"><small>02 / ИГРА</small><h3>Моды и ресурспаки</h3><p>Проверь, какие модификации можно использовать на сервере.</p><span>Открыть список ↗</span></a>
+    <a class="overview-card" href="faq"><small>03 / ВОПРОСЫ</small><h3>Частые вопросы</h3><p>Ответы о входе, лицензии и жизни на AeroLand.</p><span>Читать FAQ ↗</span></a></div>
   </div>
 </section><section class="screen form-screen" id="form-screen" aria-labelledby="form-title" hidden>
   <div class="form-intro"><div class="eyebrow">AEROLAND / ЗАЯВКА</div><h1 id="form-title">Заявка<br><span>на сервер</span></h1><p class="hero-description">Укажи имя, ник в Minecraft и Discord для связи. Перед отправкой прочитай правила сервера.</p>
@@ -62,7 +62,7 @@
               <fieldset class="license-fieldset"><legend>Есть лицензия Minecraft? <em>*</em></legend><div class="license-options"><label class="choice-card"><input type="radio" name="license" value="yes" required><span class="choice-marker" aria-hidden="true"></span><span><strong>Да</strong><small>Лицензионный аккаунт</small></span></label><label class="choice-card"><input type="radio" name="license" value="no" required><span class="choice-marker" aria-hidden="true"></span><span><strong>Нет</strong><small>Нет лицензии</small></span></label></div></fieldset>
 
               <label class="agreement"><input id="fair-play" name="fairPlay" type="checkbox" required><span class="agreement-box" aria-hidden="true"></span><span>Я принимаю тот факт, что при нечестной игре буду забанен на сервере навсегда без шанса на разбан.</span></label>
-              <a class="form-rules-link" href="rules.html" target="_blank" rel="noopener noreferrer">Прочитать правила сервера ↗</a>
+              <a class="form-rules-link" href="rules" target="_blank" rel="noopener noreferrer">Прочитать правила сервера ↗</a>
 
               <p class="form-error" id="form-error" role="alert" hidden></p>
               <button class="primary-button submit-button" id="submit-button" type="submit"><span class="button-pixel" aria-hidden="true">▣</span><span>Отправить заявку</span><span class="button-arrow" aria-hidden="true">↗</span></button>

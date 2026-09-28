@@ -69,8 +69,8 @@ function sendJson(response, status, body, extraHeaders = {}) {
   response.end(JSON.stringify(body));
 }
 
-function redirect(response, location, extraHeaders = {}) {
-  response.writeHead(302, { Location: location, 'Cache-Control': 'no-store', ...extraHeaders });
+function redirect(response, location, extraHeaders = {}, status = 302) {
+  response.writeHead(status, { Location: location, 'Cache-Control': 'no-store', ...extraHeaders });
   response.end();
 }
 
@@ -294,7 +294,14 @@ async function handleAuthCallback(request, response, url) {
 }
 
 async function serveStatic(response, pathname) {
-  const path = pathname === '/' ? '/index.html' : pathname === '/mods' ? '/mods.html' : pathname === '/rules' ? '/rules.html' : pathname === '/admin' ? '/admin.html' : pathname;
+  const pagePaths = {
+    '/': '/index.html',
+    '/mods': '/mods.html',
+    '/rules': '/rules.html',
+    '/faq': '/faq.html',
+    '/admin': '/admin.html'
+  };
+  const path = pagePaths[pathname] || pathname;
   let filePath;
   try {
     filePath = resolve(publicDir, '.' + decodeURIComponent(path));
@@ -335,6 +342,16 @@ const server = createServer(async (request, response) => {
   securityHeaders(request, response);
   const url = new URL(request.url, publicUrl);
   try {
+    const canonicalPaths = {
+      '/index': '/', '/index.html': '/',
+      '/rules.html': '/rules', '/rules/': '/rules',
+      '/mods.html': '/mods', '/mods/': '/mods',
+      '/faq.html': '/faq', '/faq/': '/faq',
+      '/admin.html': '/admin', '/admin/': '/admin'
+    };
+    if (request.method === 'GET' && canonicalPaths[url.pathname]) {
+      return redirect(response, `${canonicalPaths[url.pathname]}${url.search}`, {}, 301);
+    }
     if (request.method === 'OPTIONS' && url.pathname.startsWith('/api/')) {
       if (request.headers.origin !== frontendUrl.origin) return sendJson(response, 403, { error: 'Недопустимый запрос.' });
       response.writeHead(204, {

@@ -34,6 +34,8 @@ npm start
 
 GitHub Pages публикует статические файлы из `public/`. Для Twitch OAuth, заявок и панели администратора постоянно работает Node-сервер с диском. DNS-запись `aeromolica.kiparis.fun` указывает на VPS. Nginx на VPS получает статические страницы с `https://kiparis-zx.github.io/apexland-site/` и отправляет запросы `/api/` и `/auth/` локальному Node-серверу. Браузер видит один HTTPS-домен, поэтому авторизационные cookie работают без сторонних cookie.
 
+Публичные адреса страниц: `/`, `/rules`, `/mods`, `/faq`, `/admin`. Nginx должен проксировать их без перенаправления на `.html`; старые адреса `/index.html`, `/rules.html`, `/mods.html`, `/faq.html`, `/admin.html` перенаправляются на короткие с сохранением параметров запроса. Локальный Node-сервер использует те же адреса.
+
 На VPS укажите `PUBLIC_URL=https://aeromolica.kiparis.fun`, `FRONTEND_URL=https://aeromolica.kiparis.fun`, `HOST=127.0.0.1`, `NODE_ENV=production` и точный Redirect URL `https://aeromolica.kiparis.fun/auth/callback` в Twitch Developer Console. `public/config.js` оставьте с пустым `AERO_API_ORIGIN`: браузер обращается к API на том же домене. Админ-логин и пароль выводятся в журнал Node-сервера при каждом запуске.
 
 Не помещайте `TWITCH_CLIENT_SECRET`, `.env` или файл `data/applications.json` в GitHub Pages или репозиторий. Переменные `PUBLIC_URL` и `PORT` для локального запуска должны указывать на один и тот же порт.
