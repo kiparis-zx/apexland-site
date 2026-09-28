@@ -8,6 +8,11 @@ const search = document.getElementById('admin-search');
 let csrfToken = null;
 let applications = [];
 const apiOrigin = window.AERO_API_ORIGIN || '';
+const statusLabels = { pending: 'На рассмотрении', accepted: 'Принята', rejected: 'Отклонена' };
+
+function statusOf(item) {
+  return item.status === 'accepted' || item.status === 'rejected' ? item.status : 'pending';
+}
 
 async function api(path, options = {}) {
   let response;
@@ -89,7 +94,13 @@ function renderApplications() {
     date.textContent = Number.isNaN(submitted.getTime())
       ? item.submittedAt
       : new Intl.DateTimeFormat('ru-RU', { dateStyle: 'medium', timeStyle: 'short' }).format(submitted);
-    header.append(player, date);
+    const meta = document.createElement('div');
+    meta.className = 'application-meta';
+    const status = document.createElement('span');
+    status.className = `application-status status-${statusOf(item)}`;
+    status.textContent = statusLabels[statusOf(item)];
+    meta.append(status, date);
+    header.append(player, meta);
     const details = document.createElement('div');
     details.className = 'application-details';
     details.append(
@@ -98,17 +109,57 @@ function renderApplications() {
       label('ЛИЦЕНЗИЯ', item.license === 'yes' ? 'Да' : 'Нет'),
       label('ПРАВИЛО ЧЕСТНОЙ ИГРЫ', item.fairPlayAccepted ? 'Принято' : 'Не подтверждено')
     );
-    card.append(header, details);
+    const actions = document.createElement('div');
+    actions.className = 'application-actions';
+    const error = document.createElement('p');
+    error.className = 'application-action-error';
+    error.setAttribute('role', 'alert');
+    error.hidden = true;
+    for (const [decision, title] of [['accepted', 'Принять'], ['rejected', 'Отклонить']]) {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = `decision-button decision-${decision}`;
+      button.textContent = title;
+      button.disabled = statusOf(item) === decision;
+      button.setAttribute('aria-label', `${title} заявку ${item.minecraft}`);
+      button.addEventListener('click', async () => {
+        error.hidden = true;
+        for (const action of actions.querySelectorAll('button')) action.disabled = true;
+        try {
+          const result = await api(`/api/admin/applications/${encodeURIComponent(item.twitchId)}/decision`, {
+            method: 'POST',
+            headers: { 'X-CSRF-Token': csrfToken },
+            body: JSON.stringify({ status: decision })
+          });
+          applications = applications.map(application => application.twitchId === item.twitchId ? result.application : application);
+          updateCounts();
+          renderApplications();
+        } catch (reason) {
+          error.textContent = reason.message;
+          error.hidden = false;
+          for (const action of actions.querySelectorAll('button')) action.disabled = statusOf(item) === action.dataset.decision;
+        }
+      });
+      button.dataset.decision = decision;
+      actions.append(button);
+    }
+    actions.append(error);
+    card.append(header, details, actions);
     list.append(card);
+  }
+}
+
+function updateCounts() {
+  document.getElementById('applications-count').textContent = String(applications.length);
+  for (const status of ['pending', 'accepted', 'rejected']) {
+    document.getElementById(`${status}-count`).textContent = String(applications.filter(item => statusOf(item) === status).length);
   }
 }
 
 async function loadApplications() {
   const result = await api('/api/admin/applications');
   applications = result.applications;
-  document.getElementById('applications-count').textContent = String(applications.length);
-  document.getElementById('licensed-count').textContent = String(applications.filter(item => item.license === 'yes').length);
-  document.getElementById('unlicensed-count').textContent = String(applications.filter(item => item.license === 'no').length);
+  updateCounts();
   renderApplications();
 }
 

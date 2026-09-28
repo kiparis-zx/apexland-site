@@ -387,6 +387,38 @@ const server = createServer(async (request, response) => {
       return sendJson(response, 200, { applications: items });
     }
 
+    const decisionMatch = /^\/api\/admin\/applications\/([^/]+)\/decision$/.exec(url.pathname);
+    if (request.method === 'POST' && decisionMatch) {
+      const session = adminSessionFor(request);
+      if (!session || !checkCsrf(request, session)) return sendJson(response, 403, { error: 'Сессия истекла. Войдите снова.' });
+      let body;
+      try {
+        body = await readJson(request);
+      } catch {
+        return sendJson(response, 400, { error: 'Некорректные данные.' });
+      }
+      if (body?.status !== 'accepted' && body?.status !== 'rejected') {
+        return sendJson(response, 400, { error: 'Выберите: принять или отклонить.' });
+      }
+      let twitchId;
+      try {
+        twitchId = decodeURIComponent(decisionMatch[1]);
+      } catch {
+        return sendJson(response, 400, { error: 'Некорректный идентификатор заявки.' });
+      }
+      const previous = applications.get(twitchId);
+      if (!previous) return sendJson(response, 404, { error: 'Заявка не найдена.' });
+      const application = { ...previous, status: body.status, decidedAt: new Date().toISOString() };
+      applications.set(twitchId, application);
+      try {
+        await persistApplications();
+      } catch (error) {
+        applications.set(twitchId, previous);
+        throw error;
+      }
+      return sendJson(response, 200, { application });
+    }
+
     if (request.method === 'POST' && url.pathname === '/api/admin/logout') {
       const session = adminSessionFor(request);
       if (!session || !checkCsrf(request, session)) return sendJson(response, 403, { error: 'Сессия истекла.' });
@@ -453,6 +485,7 @@ const server = createServer(async (request, response) => {
         discord: data.discord,
         license: data.license,
         fairPlayAccepted: true,
+        status: 'pending',
         submittedAt: new Date().toISOString()
       };
       if (session.demo) {

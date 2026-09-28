@@ -12,8 +12,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=6">
-  <link rel="stylesheet" href="design.css?v=2">
-  <script src="config.js?v=6" defer></script><script src="admin.js?v=6" defer></script>
+  <link rel="stylesheet" href="design.css?v=5">
+  <script src="config.js?v=6" defer></script><script src="admin.js?v=7" defer></script>
 </head>
 <body class="is-loading admin-page">
 <div class="site-shell"><header class="topbar" id="top"><a class="brand" href="index.html" aria-label="AeroLand — на главную"><span class="brand-name">Aero<span>Land</span></span></a><div class="topbar-right"><a class="admin-back" href="index.html">На сайт ↗</a></div></header>
@@ -30,7 +30,7 @@
           </form>
         </section><section class="admin-dashboard" id="admin-dashboard" aria-labelledby="admin-dashboard-title" hidden>
           <div class="admin-dashboard-header"><div><div class="eyebrow"><span class="eyebrow-square"></span> AEROLAND / АДМИНИСТРАТОР</div><h1 id="admin-dashboard-title">Заявки <span>игроков</span></h1><p>Здесь отображаются заявки, отправленные после входа через Twitch.</p></div><div class="admin-actions"><button id="admin-refresh" type="button">Обновить ↻</button><button id="admin-logout" type="button">Выйти ↗</button></div></div>
-          <div class="admin-summary"><div><small>ВСЕГО ЗАЯВОК</small><strong id="applications-count">0</strong></div><div><small>С ЛИЦЕНЗИЕЙ</small><strong id="licensed-count">0</strong></div><div><small>БЕЗ ЛИЦЕНЗИИ</small><strong id="unlicensed-count">0</strong></div></div>
+          <div class="admin-summary"><div><small>ВСЕГО ЗАЯВОК</small><strong id="applications-count">0</strong></div><div><small>НА РАССМОТРЕНИИ</small><strong id="pending-count">0</strong></div><div><small>ПРИНЯТО</small><strong id="accepted-count">0</strong></div><div><small>ОТКЛОНЕНО</small><strong id="rejected-count">0</strong></div></div>
           <div class="panel admin-list-panel"><div class="panel-corners" aria-hidden="true"></div><div class="admin-list-header"><div><span class="tiny-label">СПИСОК ЗАЯВОК</span><h2>Последние заявки</h2></div><label class="mod-search"><span aria-hidden="true">⌕</span><input id="admin-search" type="search" placeholder="Игрок, Twitch или Discord" aria-label="Поиск по заявкам"></label></div><div id="admin-applications" class="admin-applications" aria-live="polite"></div></div>
         </section></main>
 <footer class="site-footer"><strong>AeroLand</strong><span>Панель администратора · © 2026 AeroLand</span><a href="#top">Наверх ↑</a></footer></div>

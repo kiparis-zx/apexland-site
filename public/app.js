@@ -13,9 +13,19 @@ const submitButton = document.getElementById('submit-button');
 const toastElement = document.getElementById('toast');
 const backgroundVideo = document.querySelector('.world-bg video');
 let session = null;
+let currentState = null;
 let toastTimeout;
 const apiOrigin = window.AERO_API_ORIGIN || '';
 if (apiOrigin) twitchButton.href = `${apiOrigin}/auth/twitch`;
+const decisionCopy = {
+  pending: { title: 'отправлена', message: 'Анкета сохранена. Решение по заявке появится здесь.', label: 'На рассмотрении', icon: '✓' },
+  accepted: { title: 'одобрена', message: 'Заявка принята. С вами свяжутся в Discord.', label: 'Принята', icon: '✓' },
+  rejected: { title: 'отклонена', message: 'В этот раз заявка отклонена. Попробуйте в следующем сезоне.', label: 'Отклонена', icon: '×' }
+};
+
+function applicationStatus(application) {
+  return ['accepted', 'rejected'].includes(application?.status) ? application.status : 'pending';
+}
 
 async function api(path, options = {}) {
   let response;
@@ -54,9 +64,12 @@ function toast(message) {
 }
 
 function render(state) {
+  currentState = state;
   session = state.authenticated ? state : null;
   logoutButton.hidden = !state.authenticated;
   if (!state.authenticated) {
+    document.getElementById('application').hidden = false;
+    document.getElementById('member-panel').hidden = true;
     navCta.href = '#application';
     navCta.textContent = 'Подать заявку';
     twitchButton.hidden = !state.authConfigured;
@@ -72,6 +85,8 @@ function render(state) {
 
   document.getElementById('identity-name').textContent = state.user.displayName;
   document.getElementById('twitch-name').value = state.user.displayName;
+  document.getElementById('application').hidden = true;
+  document.getElementById('member-panel').hidden = false;
   const avatar = document.getElementById('identity-avatar');
   avatar.textContent = state.user.displayName.slice(0, 1).toUpperCase();
   if (state.user.avatar) {
@@ -82,27 +97,61 @@ function render(state) {
   }
 
   if (state.application) {
+    const status = applicationStatus(state.application);
+    const copy = decisionCopy[status];
     navCta.href = '#done-screen';
     navCta.textContent = 'Моя заявка';
     document.getElementById('done-player').textContent = state.application.minecraft;
     document.getElementById('done-twitch').textContent = state.user.displayName;
-    show('done');
+    document.getElementById('done-title-state').textContent = copy.title;
+    document.getElementById('done-message').textContent = copy.message;
+    document.getElementById('done-status').textContent = copy.label;
+    document.getElementById('done-icon').textContent = copy.icon;
+    doneScreen.dataset.status = status;
+    document.getElementById('member-heading').textContent = status === 'pending' ? 'Заявка на рассмотрении' : `Заявка ${copy.title}`;
+    document.getElementById('member-description').textContent = copy.message;
+    document.getElementById('member-action').href = '#done-screen';
+    document.getElementById('member-action-label').textContent = 'Моя заявка';
+    show(location.hash === '#home' ? 'landing' : 'done');
   } else {
     navCta.href = '#form-screen';
     navCta.textContent = 'Заполнить анкету';
-    show('form');
+    document.getElementById('member-heading').textContent = `Привет, ${state.user.displayName}`;
+    document.getElementById('member-description').textContent = 'Вход через Twitch подтверждён. Осталось заполнить анкету для сервера.';
+    document.getElementById('member-action').href = '#form-screen';
+    document.getElementById('member-action-label').textContent = 'Заполнить анкету';
+    show(location.hash === '#home' ? 'landing' : 'form');
   }
 }
 
 async function loadState() {
   const state = await api('/api/me');
   render(state);
+  const status = applicationStatus(state.application);
+  if (state.authenticated && state.application && status !== 'pending') {
+    const key = `aeroland-decision-${state.user.id}`;
+    const decision = `${status}:${state.application.decidedAt || ''}`;
+    if (sessionStorage.getItem(key) !== decision) {
+      sessionStorage.setItem(key, decision);
+      toast(decisionCopy[status].message);
+    }
+  }
 }
+
+window.addEventListener('hashchange', () => {
+  if (currentState) render(currentState);
+  window.scrollTo({ top: 0, behavior: 'auto' });
+});
+
+setInterval(() => {
+  if (session?.application && document.visibilityState === 'visible') loadState().catch(() => {});
+}, 30_000);
 
 demoButton.addEventListener('click', async () => {
   demoButton.disabled = true;
   try {
     await api('/api/demo-login', { method: 'POST' });
+    history.replaceState(null, '', `${location.pathname}#form-screen`);
     await loadState();
   } catch (error) {
     toast(error.message);
@@ -119,6 +168,7 @@ async function logout() {
       headers: { 'X-CSRF-Token': session.csrfToken }
     });
     applicationForm.reset();
+    history.replaceState(null, '', `${location.pathname}#home`);
     await loadState();
   } catch (error) {
     toast(error.message);
@@ -198,6 +248,7 @@ applicationForm.addEventListener('submit', async event => {
         fairPlay: true
       })
     });
+    history.replaceState(null, '', `${location.pathname}#done-screen`);
     await loadState();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   } catch (error) {
