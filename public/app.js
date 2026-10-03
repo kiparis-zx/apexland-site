@@ -67,6 +67,9 @@ function render(state) {
   currentState = state;
   session = state.authenticated ? state : null;
   logoutButton.hidden = !state.authenticated;
+  const canDownload = Boolean(state.authenticated && state.application?.status === 'accepted');
+  for (const link of document.querySelectorAll('[data-download-link]')) link.hidden = !canDownload;
+  document.getElementById('done-download').hidden = !canDownload;
   if (!state.authenticated) {
     document.getElementById('application').hidden = false;
     document.getElementById('member-panel').hidden = true;

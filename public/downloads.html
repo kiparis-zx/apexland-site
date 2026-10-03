@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0c0e12">
+  <meta name="description" content="Сборка AeroLand для Modrinth, Prism Launcher, TLauncher и Legacy Launcher.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Скачать — AeroLand</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="design.css?v=8">
+  <script src="config.js?v=6" defer></script>
+  <script src="nav.js?v=3" defer></script>
+  <script src="downloads.js?v=1" defer></script>
+</head>
+<body class="downloads-page">
+<div class="site-shell">
+  <header class="topbar" id="top"><a class="brand" href="./#home" aria-label="AeroLand — на главную"><span class="brand-name">Aero<span>Land</span></span></a><div class="topbar-right"><nav class="nav-links" aria-label="Главная навигация"><a href="./#home">Главная</a><a href="rules">Правила</a><a href="mods">Моды</a><a href="faq">FAQ</a><a href="downloads" class="active" aria-current="page" data-download-link hidden>Скачать</a></nav><a class="nav-cta" href="./#application">Подать заявку</a></div></header>
+  <main class="downloads-main">
+    <section class="downloads-hero" aria-labelledby="downloads-title">
+      <div class="eyebrow">AEROLAND / СБОРКА</div>
+      <h1 id="downloads-title">Сборка <span>AeroLand</span></h1>
+      <p>Выбери формат для своего лаунчера. Minecraft 1.21.11.</p>
+    </section>
+    <section class="panel download-access" id="download-access" aria-labelledby="access-title" aria-live="polite">
+      <span class="tiny-label">ДОСТУП К СБОРКЕ</span>
+      <h2 id="access-title">Проверяем доступ</h2>
+      <p id="access-message">Сборка доступна игрокам с одобренной заявкой.</p>
+      <a class="nav-cta" id="access-action" href="./#application" hidden>Моя заявка ↗</a>
+      <button class="nav-cta" id="access-retry" type="button" hidden>Попробовать снова</button>
+    </section>
+    <section class="download-grid" id="download-grid" aria-label="Форматы сборки" hidden>
+      <article class="panel download-card">
+        <div class="download-card-top"><span class="download-format">.MRPACK</span><span>Minecraft 1.21.11</span></div>
+        <h2>Modrinth<br>и Prism Launcher</h2>
+        <p>Готовая сборка для импорта в лаунчер. Скачай файл и импортируй его как новую сборку.</p>
+        <a class="primary-button download-button" id="download-mrpack" target="_blank" rel="noopener noreferrer">Скачать .mrpack <span aria-hidden="true">↗</span></a>
+      </article>
+      <article class="panel download-card">
+        <div class="download-card-top"><span class="download-format">.ZIP</span><span>Minecraft 1.21.11</span></div>
+        <h2>TLauncher<br>и Legacy Launcher</h2>
+        <p>Архив со сборкой для ручной установки. Используй отдельную папку игры для AeroLand.</p>
+        <a class="primary-button download-button" id="download-zip" target="_blank" rel="noopener noreferrer">Скачать ZIP <span aria-hidden="true">↗</span></a>
+      </article>
+      <p class="download-note">Файлы откроются на MediaFire. Если нужна помощь с установкой, загляни в <a class="community-link" href="https://discord.gg/ny2bcKSxxm" target="_blank" rel="noopener noreferrer">Discord-сообщество ↗</a>.</p>
+    </section>
+  </main>
+  <footer class="site-footer"><strong>AeroLand</strong><span>© 2026 AeroLand · <a class="community-link" href="https://discord.gg/ny2bcKSxxm" target="_blank" rel="noopener noreferrer">Discord-сообщество ↗</a></span><a href="#top">Наверх ↑</a></footer>
+</div>
+</body>
+</html>

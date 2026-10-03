@@ -26,6 +26,10 @@ const failedAdminLogins = new Map();
 const adminUsername = `admin_${randomBytes(4).toString('hex')}`;
 const adminPassword = randomBytes(24).toString('base64url');
 const applications = new Map();
+const downloadFiles = {
+  mrpack: 'https://www.mediafire.com/file/m066d4xrztsn4g5/1.21.11_AeroLand.mrpack/file',
+  zip: 'https://www.mediafire.com/file/6xus75qcwagvjra/1.21.11_AeroLand.zip/file'
+};
 let writeQueue = Promise.resolve();
 
 try {
@@ -299,7 +303,8 @@ async function serveStatic(response, pathname) {
     '/mods': '/mods.html',
     '/rules': '/rules.html',
     '/faq': '/faq.html',
-    '/admin': '/admin.html'
+    '/admin': '/admin.html',
+    '/downloads': '/downloads.html'
   };
   const path = pagePaths[pathname] || pathname;
   let filePath;
@@ -347,7 +352,8 @@ const server = createServer(async (request, response) => {
       '/rules.html': '/rules', '/rules/': '/rules',
       '/mods.html': '/mods', '/mods/': '/mods',
       '/faq.html': '/faq', '/faq/': '/faq',
-      '/admin.html': '/admin', '/admin/': '/admin'
+      '/admin.html': '/admin', '/admin/': '/admin',
+      '/downloads.html': '/downloads', '/downloads/': '/downloads'
     };
     if (request.method === 'GET' && canonicalPaths[url.pathname]) {
       return redirect(response, `${canonicalPaths[url.pathname]}${url.search}`, {}, 301);
@@ -452,6 +458,25 @@ const server = createServer(async (request, response) => {
         demo: session.demo,
         application: session.demo ? session.application || null : applications.get(session.user.id) || null
       } : { authenticated: false, authConfigured, demoAllowed });
+    }
+
+    const downloadMatch = /^\/api\/downloads(?:\/(mrpack|zip))?$/.exec(url.pathname);
+    if (request.method === 'GET' && downloadMatch) {
+      const session = await authenticatedSession(request);
+      if (!session) return sendJson(response, 401, { error: 'Войдите через Twitch, чтобы проверить доступ к сборке.' });
+      const application = session.demo ? session.application : applications.get(session.user.id);
+      if (application?.status !== 'accepted') {
+        return sendJson(response, 403, { error: 'Сборка доступна после одобрения заявки.' });
+      }
+      const format = downloadMatch[1];
+      if (format) return redirect(response, downloadFiles[format]);
+      return sendJson(response, 200, {
+        version: '1.21.11',
+        files: [
+          { format: 'mrpack', url: '/api/downloads/mrpack' },
+          { format: 'zip', url: '/api/downloads/zip' }
+        ]
+      });
     }
 
     if (request.method === 'POST' && url.pathname === '/api/demo-login') {

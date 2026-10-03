@@ -1,9 +1,12 @@
 const applicationLinks = document.querySelectorAll('a[href="./#application"]');
 
-fetch(`${window.AERO_API_ORIGIN || ''}/api/me`, { credentials: 'include', cache: 'no-store' })
+window.aerolandSession = fetch(`${window.AERO_API_ORIGIN || ''}/api/me`, { credentials: 'include', cache: 'no-store' })
   .then(response => response.ok ? response.json() : null)
   .then(state => {
-    if (!state?.authenticated) return;
+    for (const link of document.querySelectorAll('[data-download-link]')) {
+      link.hidden = !state?.authenticated || state.application?.status !== 'accepted';
+    }
+    if (!state?.authenticated) return state;
     const hasApplication = Boolean(state.application);
     const label = hasApplication ? 'Моя заявка' : 'Заполнить анкету';
     const target = hasApplication ? './#done-screen' : './#form-screen';
@@ -11,5 +14,6 @@ fetch(`${window.AERO_API_ORIGIN || ''}/api/me`, { credentials: 'include', cache:
       link.href = target;
       link.textContent = link.closest('.faq-after') ? `${label} ↗` : label;
     }
+    return state;
   })
-  .catch(() => {});
+  .catch(() => null);
